@@ -5,7 +5,7 @@ import { playground } from "@colyseus/playground";
 /**
  * Import your Room files
  */
-import { TonkRoom } from "./rooms/TonkRoom";
+import TonkGameRoom from "./rooms/TonkGameRoom";
 
 export default config({
 
@@ -13,7 +13,7 @@ export default config({
         /**
          * Define your room handlers:
          */
-        gameServer.define('Tonk_Room', TonkRoom);
+        gameServer.define('Tonk_Room', TonkGameRoom);
 
     },
 
