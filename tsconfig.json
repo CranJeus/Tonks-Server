@@ -4,6 +4,7 @@
     "target": "ESNext",
     "module": "CommonJS",
     "moduleResolution": "node",
+    "types": ["mocha"],
     "strict": true,
     "allowJs": true,
     "strictNullChecks": false,
@@ -14,6 +15,6 @@
     "useDefineForClassFields": false
   },
   "include": [
-    "src"
+    "src","test"
   ]
 }
