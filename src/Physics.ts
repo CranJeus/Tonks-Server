@@ -1,4 +1,4 @@
-import { Engine, World, Bodies, Body, SAT } from 'matter-js';
+import { Engine, World, Bodies, Body, Collision } from 'matter-js';
 import { Tank, Obstruction } from './rooms/schema/TonkRoomState';
 
 class Physics {
@@ -6,7 +6,6 @@ class Physics {
 
   constructor() {
     this.engine = Engine.create();
-    this.engine.world.gravity.y = 0; // No gravity for a top-down game
   }
 
   createTankBody(tank: Tank): Body {
@@ -35,7 +34,7 @@ class Physics {
   }
 
   checkCollision(bodyA: Body, bodyB: Body): boolean {
-    return SAT.collides(bodyA, bodyB).collided;
+    return Collision.collides(bodyA, bodyB, null) != null;
   }
 
   createStaticBodiesForObstructions(obstructions: Obstruction[]): Body[] {
@@ -61,7 +60,7 @@ class Physics {
 
       // Check for collisions with all other bodies
       for (const body of allBodies) {
-        if (body !== tankBody && SAT.collides(tankBody, body).collided) {
+        if (body !== tankBody && Collision.collides(tankBody, body, null)) {
           collided = true;
           distance -= increment; // Step back to the last non-colliding position
           break;

@@ -21,6 +21,8 @@ class TonkGameRoom extends Room<TonkRoomState> {
     this.onMessage('fire', this.handleFire);
     this.onMessage('reload', this.handleReload);
     this.onMessage('rotateTurret', this.handleRotateTurret);
+    this.setMetadata({ name: options.name?options.name:"Default Room"})
+    this.setMetadata({ gameState: "waiting" });
   }
 
   // ... other methods ...
@@ -36,6 +38,7 @@ class TonkGameRoom extends Room<TonkRoomState> {
     // Create a new physics body for the tank
     const tankBody = this.physics.createTankBody(newTank);
     this.tankBodies.set(client.sessionId, tankBody as Body);
+    
   }
 
   // Override onLeave to remove the tank and its physics body

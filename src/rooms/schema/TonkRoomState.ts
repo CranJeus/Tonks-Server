@@ -1,5 +1,11 @@
 import { Schema, type, MapSchema, ArraySchema } from "@colyseus/schema";
 
+enum GameState {
+  Waiting = "waiting",
+  Setup = "setup",
+  Playing = "playing",
+  GameOver = "gameOver"
+}
 class Tank extends Schema {
   @type("string")
   sessionId: string;
@@ -73,7 +79,11 @@ class TonkRoomState extends Schema {
   @type([Obstruction])
   obstructions = new ArraySchema<Obstruction>();
 
-  // You can add other game state properties here
+  // basic game state
+  @type("string")
+  gameState: GameState;
+  @type("string")
+  prevGameState: GameState;
 }
 
 export { Tank, Obstruction, TonkRoomState };

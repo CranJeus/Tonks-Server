@@ -1,6 +1,7 @@
 import config from "@colyseus/tools";
 import { monitor } from "@colyseus/monitor";
 import { playground } from "@colyseus/playground";
+import { LobbyRoom } from "colyseus";
 
 /**
  * Import your Room files
@@ -13,7 +14,12 @@ export default config({
         /**
          * Define your room handlers:
          */
-        gameServer.define('Tonk_Room', TonkGameRoom);
+        gameServer
+            .define('Tonk_Room', TonkGameRoom)
+            .enableRealtimeListing();
+
+        gameServer
+            .define("lobby", LobbyRoom);
 
     },
 
