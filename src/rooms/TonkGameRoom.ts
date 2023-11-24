@@ -1,5 +1,5 @@
 import { Room, Client } from 'colyseus';
-import { Tank, Obstruction, TonkRoomState } from './schema/TonkRoomState';
+import { Tank, TonkRoomState } from './schema/TonkRoomState';
 import Physics from '../Physics'; // Assuming Physics is in the same directory
 import { Body } from 'matter-js';
 
@@ -21,6 +21,10 @@ class TonkGameRoom extends Room<TonkRoomState> {
     this.onMessage('fire', this.handleFire);
     this.onMessage('reload', this.handleReload);
     this.onMessage('rotateTurret', this.handleRotateTurret);
+    this.onMessage("message", (client, message) => {
+      console.log("ChatRoom received message from", client.sessionId, ":", message);
+      this.broadcast("messages", `(${client.sessionId}) ${message}`);
+  });
     this.setMetadata({ name: options.name?options.name:"Default Room"})
     this.setMetadata({ gameState: "waiting" });
   }

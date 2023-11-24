@@ -2,7 +2,7 @@ import config from "@colyseus/tools";
 import { monitor } from "@colyseus/monitor";
 import { playground } from "@colyseus/playground";
 import { LobbyRoom } from "colyseus";
-
+import { ChatRoom } from "./rooms/ChatLobbyRoom";
 /**
  * Import your Room files
  */
@@ -20,6 +20,8 @@ export default config({
 
         gameServer
             .define("lobby", LobbyRoom);
+        gameServer
+            .define("chat", ChatRoom);
 
     },
 
