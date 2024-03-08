@@ -3,6 +3,7 @@ import { monitor } from "@colyseus/monitor";
 import { playground } from "@colyseus/playground";
 import { LobbyRoom } from "colyseus";
 import { ChatRoom } from "./rooms/ChatLobbyRoom";
+import { matchMaker } from "colyseus";
 /**
  * Import your Room files
  */
@@ -51,9 +52,14 @@ export default config({
     },
 
 
-    beforeListen: () => {
+    beforeListen: async () => {
         /**
          * Before before gameServer.listen() is called.
          */
+
+        const existingRoom = await matchMaker.findOneRoomAvailable("chat", { /* options */ })
+        if (!existingRoom) {
+            await matchMaker.createRoom("chat", { /* options */ });
+        }
     }
 });

@@ -16,6 +16,7 @@ class MyMessage extends Schema {
 }
 
 export class ChatRoom extends Room {
+    autoDispose = false;
     async onCreate(options: any) {
         console.log("ChatRoom created!", options);
         this.setState(new LobbyState());
