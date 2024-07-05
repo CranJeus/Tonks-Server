@@ -28,20 +28,21 @@ export class ChatRoom extends Room {
             data.name = this.state.userNames.get(client.sessionId) ? this.state.userNames.get(client.sessionId) : "Default Name";
             this.broadcast("messages", data);
         });
-        
+
         this.setMetadata({ name: options.name ? options.name : "Chat Room" })
         this.setMetadata({ gameState: "waiting" });
     }
 
     onJoin(client: Client, options: any) {
         console.log(client.sessionId, "joined!");
+        console.log("options", options);
         this.state.userNames.set(client.sessionId, options.name ? options.name : "Default Name");
         const data = new MyMessage();
-        data.message = `${options.name?options.name:client.sessionId} joined.`;
+        data.message = `${options.name ? options.name : client.sessionId} joined.`;
         data.sessionId = client.sessionId;
         data.name = "Server";
         this.broadcast("messages", data);
-        
+
     }
 
     onLeave(client: Client) {
